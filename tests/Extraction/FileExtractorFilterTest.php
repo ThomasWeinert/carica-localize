@@ -24,7 +24,7 @@ namespace I18N\Messages\Extraction {
     #[DataProvider('provideMatchingFileNames')]
     public function testWithMatchingFileNames(string $fileName): void {
       $filteredFor = $this
-        ->createMock(Extractor::class);
+        ->createMock(FileExtractor::class);
       $filteredFor
         ->expects($this->once())
         ->method('extract')
@@ -52,7 +52,7 @@ namespace I18N\Messages\Extraction {
     #[DataProvider('provideNonMatchingFileNames')]
     public function testWithNoneMatchingFileNames(string $fileName): void {
       $filteredFor = $this
-        ->createMock(Extractor::class);
+        ->createMock(FileExtractor::class);
       $filteredFor
         ->expects($this->never())
         ->method('extract');

@@ -11,16 +11,16 @@ namespace I18N\Messages\Serializer {
 
     public function serializeToString(
       \Iterator $units,
-      string $fileName,
       string $sourceLanguage,
-      string $targetLanguage = ''
+      string $targetLanguage = '',
+      string $mergeFromFile = '',
     ): string {
       $previousDocument = new \DOMDocument();
+      if ($targetLanguage && $mergeFromFile) {
+        $previousDocument->load($mergeFromFile);
+      }
       $xpath = new \DOMXPath($previousDocument);
       $xpath->registerNamespace('xliff', self::XMLNS_XLIFF);
-      if ($targetLanguage && file_exists($fileName)) {
-        $previousDocument->load($fileName);
-      }
       $body = $this->createDocument($sourceLanguage, $targetLanguage);
       foreach ($units as $unit) {
         $previousUnit = $this->firstNodeOf(
@@ -28,6 +28,7 @@ namespace I18N\Messages\Serializer {
         );
         $this->writeUnit($unit, $body, (bool)$targetLanguage, $previousUnit);
       }
+      return $body->ownerDocument->saveXML();
     }
 
     private function firstNodeOf(
@@ -77,7 +78,7 @@ namespace I18N\Messages\Serializer {
       $transUnit->append(
         $source = $document->createElementNS(self::XMLNS_XLIFF, 'source')
       );
-      $source->textContent = $unit->message;
+      $source->textContent = $unit->source;
       if ($withTarget) {
         $transUnit->append(
           $target = $document->createElementNS(self::XMLNS_XLIFF, 'target')
@@ -90,6 +91,7 @@ namespace I18N\Messages\Serializer {
           $currentSource = $xpath->evaluate('string(xliff:source)', $current);
           $currentState = $xpath->evaluate('string(xliff:target/@state)', $current);
           $currentMeaning = $xpath->evaluate('string(xliff:note[@from="meaning"])', $current);
+          $target->textContent = $xpath->evaluate('string(xliff:target)', $current);
           if ($currentSource === $unit->source && $currentMeaning === $unit->meaning) {
             $target->setAttribute('state', $currentState);
           } else {
