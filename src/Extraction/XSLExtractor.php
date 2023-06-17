@@ -15,9 +15,9 @@ namespace I18N\Messages\Extraction {
     ) {
     }
 
-    public function extract(string $target): \Iterator {
+    public function extract(\SplFileInfo|string $target): \Iterator {
       $document = new \DOMDocument();
-      $document->load($target);
+      $document->load((string)$target);
       $xpath = new \DOMXPath($document);
       $xpath->registerNamespace('xsl', self::XMLNS_XSL);
       $calls = $xpath->evaluate('//xsl:call-template[contains(@name, ":message")]');
@@ -32,7 +32,7 @@ namespace I18N\Messages\Extraction {
           $xpath->evaluate('string(xsl:with-param[@name="message"])', $call),
           $xpath->evaluate('string(xsl:with-param[@name="meaning"])', $call),
           $xpath->evaluate('string(xsl:with-param[@name="description"])', $call),
-          $target,
+          (string)$target,
           $call->getLineNo()
         );
       }

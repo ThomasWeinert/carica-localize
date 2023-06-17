@@ -16,7 +16,7 @@ namespace I18N\Messages\Extraction {
       $this->_extractors = $extractors;
     }
 
-    public function extract(string $directory): \Iterator {
+    public function extract(\SplFileInfo|string $directory): \Iterator {
       $files = new \RecursiveDirectoryIterator($directory);
       $units = new \AppendIterator();
       foreach ($files as $file) {

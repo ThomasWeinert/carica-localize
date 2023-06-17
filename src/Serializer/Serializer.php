@@ -5,7 +5,14 @@ namespace I18N\Messages\Serializer {
 
   interface Serializer {
 
-    public function create(\Iterator $units): string;
-    public function merge(\Iterator $units, string $fileName): string;
+
+    public function getFileName(string $name, string $targetLanguage = ''): string;
+
+    public function serializeToString(
+      iterable $units,
+      string $sourceLanguage,
+      string $targetLanguage = '',
+      string $mergeFromFile = '',
+    ): string;
   }
 }

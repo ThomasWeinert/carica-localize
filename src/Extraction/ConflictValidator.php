@@ -10,7 +10,7 @@ namespace I18N\Messages\Extraction {
     ) {
     }
 
-    public function extract(string $target): \Iterator {
+    public function extract(\SplFileInfo|string $target): \Iterator {
       $done = [];
       foreach ($this->extractor->extract($target) as $unit) {
         if ($done[$unit->id] ?? null) {

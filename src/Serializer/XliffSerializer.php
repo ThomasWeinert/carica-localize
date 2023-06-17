@@ -5,19 +5,26 @@ namespace I18N\Messages\Serializer {
 
   use I18N\Messages\TranslationUnit;
 
-  class XliffSerializer {
+  class XliffSerializer implements Serializer {
 
     private const XMLNS_XLIFF = 'urn:oasis:names:tc:xliff:document:1.2';
 
+    public function getFileName(string $name, string $targetLanguage = ''): string {
+      return $name.($targetLanguage ? '.'.$targetLanguage : '').'.xlf';
+    }
+
     public function serializeToString(
-      \Iterator $units,
+      iterable $units,
       string $sourceLanguage,
       string $targetLanguage = '',
       string $mergeFromFile = '',
     ): string {
       $previousDocument = new \DOMDocument();
       if ($targetLanguage && $mergeFromFile) {
-        $previousDocument->load($mergeFromFile);
+        try {
+          @$previousDocument->load($mergeFromFile);
+        } catch (\Throwable $e) {
+        }
       }
       $xpath = new \DOMXPath($previousDocument);
       $xpath->registerNamespace('xliff', self::XMLNS_XLIFF);
@@ -45,6 +52,7 @@ namespace I18N\Messages\Serializer {
       string $targetLanguage = ''
     ): \DOMElement {
       $document = new \DOMDocument('1.0', 'UTF-8');
+      $document->formatOutput = true;
       $document->append(
         $xliff = $document->createElementNS(self::XMLNS_XLIFF, 'xliff')
       );
@@ -57,7 +65,7 @@ namespace I18N\Messages\Serializer {
         $file->setAttribute('target-language', $targetLanguage);
       }
       $file->setAttribute('datatype', 'plaintext');
-      $file->setAttribute('original', 'xsl.template');
+      $file->setAttribute('original', 'i18n.messages');
       $file->append(
         $body = $document->createElementNS(self::XMLNS_XLIFF, 'body')
       );

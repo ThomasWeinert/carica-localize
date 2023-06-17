@@ -14,8 +14,8 @@ namespace I18N\Messages\Extraction {
       $this->_extractors = $extractors;
     }
 
-    public function extract(string $target): \Iterator {
-      if (preg_match($this->pattern, $target)) {
+    public function extract(\SplFileInfo|string $target): \Iterator {
+      if (preg_match($this->pattern, (string)$target)) {
         $iterator = new \AppendIterator();
         foreach ($this->_extractors as $extractor) {
           $iterator->append($extractor->extract($target));
