@@ -1,0 +1,13 @@
+{
+  "name": "thomasweinert/php-i18n-messages",
+  "description": "Extract and localize messages in PHP applications",
+  "type": "library",
+  "require": {
+    "php": "^8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "I18N\\Messages\\": "src/"
+    }
+  }
+}
