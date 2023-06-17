@@ -3,15 +3,15 @@ declare(strict_types=1);
 
 namespace I18N\Messages\Extraction {
 
-  readonly class RecursiveDirectoryFileExtractor {
+  readonly class RecursiveDirectoryExtractor implements Extractor {
 
     /**
-     * @var FileExtractorFilter[]
+     * @var ExtractorFilter[]
      */
     private array $_extractors;
 
     public function __construct(
-      FileExtractorFilter ...$extractors
+      ExtractorFilter ...$extractors
     ) {
       $this->_extractors = $extractors;
     }

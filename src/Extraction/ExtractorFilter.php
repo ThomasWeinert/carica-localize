@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace I18N\Messages\Extraction {
 
-  readonly class FileExtractorFilter implements FileExtractor {
+  readonly class ExtractorFilter implements FileExtractor {
 
     private array $_extractors;
 
@@ -14,11 +14,11 @@ namespace I18N\Messages\Extraction {
       $this->_extractors = $extractors;
     }
 
-    public function extract(string $fileName): \Iterator {
-      if (preg_match($this->pattern, $fileName)) {
+    public function extract(string $target): \Iterator {
+      if (preg_match($this->pattern, $target)) {
         $iterator = new \AppendIterator();
         foreach ($this->_extractors as $extractor) {
-          $iterator->append($extractor->extract($fileName));
+          $iterator->append($extractor->extract($target));
         }
         return $iterator;
       }
