@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace I18N\Messages\Extraction {
+namespace Carica\Localize\Extraction {
 
-  use I18N\Messages\Localize;
-  use I18N\Messages\TranslationUnit;
+  use Carica\Localize\Localize;
+  use Carica\Localize\TranslationUnit;
   use PhpParser;
 
   readonly class PHPExtractor implements FileExtractor {

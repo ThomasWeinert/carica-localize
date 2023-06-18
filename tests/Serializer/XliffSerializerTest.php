@@ -1,27 +1,29 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\Serializer {
+namespace Carica\Localize\Serializer {
 
-  use I18N\Messages\DataURL;
-  use I18N\Messages\TranslationUnit;
+  use Carica\Localize\DataURL;
+  use Carica\Localize\TranslationUnit;
   use PHPUnit\Framework\TestCase;
 
-  final class XliffSerializerTest extends TestCase {
+  final class XliffSerializerTest extends TestCase
+  {
 
-    public function testSerializeSingleUnit(): void {
+    public function testSerializeSingleUnit(): void
+    {
       $serializer = new XliffSerializer();
       $xliff = $serializer->serializeToString(
         new \ArrayIterator(
           [
-            new TranslationUnit('test.id', 'test', '', '', '', 0)
+            new TranslationUnit('test', 'test.id')
           ]
         ),
         'en'
       );
       $this->assertXmlStringEqualsXmlString(
         '<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-            <file datatype="plaintext" original="xsl.template" source-language="en">
+            <file datatype="plaintext" original="carica.localize" source-language="en">
               <body>
                 <trans-unit id="test.id">
                   <source>test</source>
@@ -33,12 +35,13 @@ namespace I18N\Messages\Serializer {
       );
     }
 
-    public function testSerializeSingleUnitWithTargetLanguage(): void {
+    public function testSerializeSingleUnitWithTargetLanguage(): void
+    {
       $serializer = new XliffSerializer();
       $xliff = $serializer->serializeToString(
         new \ArrayIterator(
           [
-            new TranslationUnit('test.id', 'test', '', '', '', 0)
+            new TranslationUnit('test', 'test.id')
           ]
         ),
         'en',
@@ -46,7 +49,7 @@ namespace I18N\Messages\Serializer {
       );
       $this->assertXmlStringEqualsXmlString(
         '<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-            <file datatype="plaintext" original="xsl.template" source-language="en" target-language="de">
+            <file datatype="plaintext" original="carica.localize" source-language="en" target-language="de">
               <body>
                 <trans-unit id="test.id">
                   <source>test</source>
@@ -59,7 +62,8 @@ namespace I18N\Messages\Serializer {
       );
     }
 
-    public function testSerializeAndMerge(): void {
+    public function testSerializeAndMerge(): void
+    {
       $existingFile = new DataURL(
         '<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
             <file datatype="plaintext" original="xsl.template" source-language="en" target-language="de">
@@ -86,16 +90,16 @@ namespace I18N\Messages\Serializer {
         new \ArrayIterator(
           [
             new TranslationUnit(
-              'test.id.translated', 'translated', '', '', '', 0
+              'translated', 'test.id.translated', '', '', '', 0
             ),
             new TranslationUnit(
-              'test.id.change-meaning', 'change-meaning', 'category', '', '', 0
+              'change-meaning', 'test.id.change-meaning', 'category', '', '', 0
             ),
             new TranslationUnit(
-              'test.id.change-source', 'changed', '', '', '', 0
+              'changed', 'test.id.change-source', '', '', '', 0
             ),
             new TranslationUnit(
-              'test.id.new', 'new', '', '', '', 0
+              'new', 'test.id.new', '', '', '', 0
             ),
           ]
         ),
@@ -105,7 +109,7 @@ namespace I18N\Messages\Serializer {
       );
       $this->assertXmlStringEqualsXmlString(
         '<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-            <file datatype="plaintext" original="xsl.template" source-language="en" target-language="de">
+            <file datatype="plaintext" original="carica.localize" source-language="en" target-language="de">
               <body>
                 <trans-unit id="test.id.translated">
                   <source>translated</source>

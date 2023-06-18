@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\Extraction {
+namespace Carica\Localize\Extraction {
 
   use PHPUnit\Framework\Attributes\DataProvider;
   use PHPUnit\Framework\TestCase;

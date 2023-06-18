@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\Extraction {
+namespace Carica\Localize\Extraction {
 
-  use I18N\Messages\DataURL;
-  use I18N\Messages\TranslationUnit;
+  use Carica\Localize\DataURL;
+  use Carica\Localize\TranslationUnit;
   use PHPUnit\Framework\TestCase;
 
   final class PHPExtractorTest extends TestCase {
 
     public function testWithMessageAndAutoId(): void {
       $xsl = new DataURL(
-        '<'."?php use I18N\Messages\Localize;
+        '<'."?php use Carica\Localize\Localize;
           echo Localize::message('Example');",
         'application/xml'
       );
@@ -36,7 +36,7 @@ namespace I18N\Messages\Extraction {
 
     public function testWithIdAndMessage(): void {
       $xsl = new DataURL(
-        '<'."?php use I18N\Messages\Localize;
+        '<'."?php use Carica\Localize\Localize;
           echo Localize::message('Example', id: 'example.id');",
         'application/xml'
       );

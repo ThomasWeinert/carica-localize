@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\Serializer {
+namespace Carica\Localize\Serializer {
 
   interface Serializer {
 

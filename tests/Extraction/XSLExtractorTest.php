@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\Extraction {
+namespace Carica\Localize\Extraction {
 
-  use I18N\Messages\DataURL;
-  use I18N\Messages\TranslationUnit;
+  use Carica\Localize\DataURL;
+  use Carica\Localize\TranslationUnit;
   use PHPUnit\Framework\TestCase;
 
   final class XSLExtractorTest extends TestCase {
@@ -14,7 +14,7 @@ namespace I18N\Messages\Extraction {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:i18n">
+            xmlns:i18n="urn:carica:localize">
 
             <xsl:template name="ExampleTemplate">
               <span>
@@ -51,7 +51,7 @@ namespace I18N\Messages\Extraction {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:i18n">
+            xmlns:i18n="urn:carica:localize">
 
             <xsl:template name="ExampleTemplate">
               <span>
@@ -88,7 +88,7 @@ namespace I18N\Messages\Extraction {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:i18n">
+            xmlns:i18n="urn:carica:localize">
 
             <xsl:template name="ExampleTemplate">
               <span>

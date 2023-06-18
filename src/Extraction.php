@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace I18N\Messages {
+namespace Carica\Localize {
 
-  use I18N\Messages\Extraction\ConflictValidator;
-  use I18N\Messages\Extraction\ExtractorFilter;
-  use I18N\Messages\Extraction\RecursiveDirectoryExtractor;
-  use I18N\Messages\Serializer\Serializer;
-  use I18N\Messages\Serializer\XliffSerializer;
+  use Carica\Localize\Extraction\ConflictValidator;
+  use Carica\Localize\Extraction\ExtractorFilter;
+  use Carica\Localize\Extraction\RecursiveDirectoryExtractor;
+  use Carica\Localize\Serializer\Serializer;
+  use Carica\Localize\Serializer\XliffSerializer;
 
   class Extraction implements \IteratorAggregate {
 

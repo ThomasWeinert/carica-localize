@@ -1,7 +1,7 @@
 <?php
 require __DIR__.'/../../vendor/autoload.php';
 
-use I18N\Messages\Extraction;
+use Carica\Localize\Extraction;
 
 $sourceLanguage = 'en';
 $targetLanguages = ['de', 'fr'];

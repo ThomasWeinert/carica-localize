@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace I18N\Messages\Extraction {
+namespace Carica\Localize\Extraction {
 
-  use I18N\Messages\TranslationUnit;
+  use Carica\Localize\TranslationUnit;
 
   readonly class XSLExtractor implements FileExtractor {
 
     private const XMLNS_XSL = 'http://www.w3.org/1999/XSL/Transform';
 
     public function __construct(
-      private string $namespaceURI = 'urn:i18n'
+      private string $namespaceURI = 'urn:carica:localize'
     ) {
     }
 

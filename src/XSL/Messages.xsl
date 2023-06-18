@@ -2,7 +2,7 @@
 <xsl:stylesheet
   version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:i18n="urn:i18n"
+  xmlns:i18n="urn:carica:localize"
   xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
   xmlns:exsl="http://exslt.org/common"
   xmlns:php="http://php.net/xsl"
@@ -14,7 +14,7 @@
   <xsl:variable name="I18N_LOCALE">en</xsl:variable>
   <xsl:variable name="I18N_SOURCE_LOCALE">en</xsl:variable>
 
-  <xsl:variable name="I18N_CALLBACK" select="'I18N\Messages\XSL\Callbacks::handleFunctionCall'"/>
+  <xsl:variable name="I18N_CALLBACK" select="'Carica\Localize\XSL\Callbacks::handleFunctionCall'"/>
   <xsl:variable name="I18N_MODULE_MESSAGES" select="'Messages'"/>
 
   <func:function name="i18n:messages-file">

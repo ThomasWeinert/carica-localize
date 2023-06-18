@@ -1,5 +1,5 @@
 {
-  "name": "thomasweinert/php-i18n-messages",
+  "name": "carica/localize",
   "description": "Extract and localize messages in PHP applications",
   "type": "library",
   "require": {
@@ -10,7 +10,7 @@
   },
   "autoload": {
     "psr-4": {
-      "I18N\\Messages\\": "src/"
+      "Carica\\Localize\\": "src/"
     }
   },
   "require-dev": {

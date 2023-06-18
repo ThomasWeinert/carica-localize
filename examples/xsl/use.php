@@ -1,15 +1,15 @@
 <?php
 require __DIR__.'/../../vendor/autoload.php';
 
-use I18N\Messages\XSL\Callbacks;
-use I18N\Messages\XSL\FileLoader;
+use Carica\Localize\XSL\Callbacks;
+use Carica\Localize\XSL\FileLoader;
 
 FileLoader::register();
 $processor = new \XSLTProcessor();
 $processor->registerPHPFunctions([Callbacks::XSL_CALLBACK]);
 
 $template = new \DOMDocument();
-$template->load('template.xsl');
+$template->load(__DIR__.'/template.xsl');
 
 $processor->importStylesheet($template);
 

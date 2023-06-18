@@ -1,6 +1,6 @@
 <schema
   xmlns="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="urn:i18n">
+  targetNamespace="urn:carica:localize">
   <!--
    This namespace has no elements.
    It is used to encapsulate the i18n templates/functions

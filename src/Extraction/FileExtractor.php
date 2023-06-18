@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace I18N\Messages\Extraction {
+namespace Carica\Localize\Extraction {
 
   interface FileExtractor extends Extractor {
 

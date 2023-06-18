@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\XSL {
+namespace Carica\Localize\XSL {
 
   class FileLoader {
 

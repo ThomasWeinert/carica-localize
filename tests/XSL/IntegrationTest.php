@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\XSL {
+namespace Carica\Localize\XSL {
 
   use PHPUnit\Framework\TestCase;
 
@@ -19,7 +19,7 @@ namespace I18N\Messages\XSL {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:i18n"
+            xmlns:i18n="urn:carica:localize"
             exclude-result-prefixes="i18n">
 
             <xsl:import href="i18n://Messages"/>
@@ -60,7 +60,7 @@ namespace I18N\Messages\XSL {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:i18n"
+            xmlns:i18n="urn:carica:localize"
             exclude-result-prefixes="i18n">
 
             <xsl:import href="i18n://Messages"/>
@@ -102,7 +102,7 @@ namespace I18N\Messages\XSL {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:i18n"
+            xmlns:i18n="urn:carica:localize"
             exclude-result-prefixes="i18n">
 
             <xsl:import href="i18n://Messages"/>

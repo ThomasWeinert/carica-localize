@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\XSL {
+namespace Carica\Localize\XSL {
 
-  use I18N\Messages\TranslationUnit;
+  use Carica\Localize\TranslationUnit;
 
   abstract class Messages {
 

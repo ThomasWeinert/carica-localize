@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace I18N\Messages\Serializer {
+namespace Carica\Localize\Serializer {
 
-  use I18N\Messages\TranslationUnit;
+  use Carica\Localize\TranslationUnit;
 
   class XliffSerializer implements Serializer {
 
@@ -65,7 +65,7 @@ namespace I18N\Messages\Serializer {
         $file->setAttribute('target-language', $targetLanguage);
       }
       $file->setAttribute('datatype', 'plaintext');
-      $file->setAttribute('original', 'i18n.messages');
+      $file->setAttribute('original', 'carica.localize');
       $file->append(
         $body = $document->createElementNS(self::XMLNS_XLIFF, 'body')
       );

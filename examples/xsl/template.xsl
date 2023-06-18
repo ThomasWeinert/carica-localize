@@ -1,7 +1,7 @@
 <xsl:stylesheet
   version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:i18n="urn:i18n"
+  xmlns:i18n="urn:carica:localize"
   exclude-result-prefixes="i18n">
 
   <xsl:import href="i18n://Messages"/>
