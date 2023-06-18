@@ -5,7 +5,8 @@
   "require": {
     "php": "^8.2",
     "ext-dom": "*",
-    "ext-intl": "*"
+    "ext-intl": "*",
+    "nikic/php-parser": "^4.15"
   },
   "autoload": {
     "psr-4": {
