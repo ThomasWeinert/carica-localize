@@ -28,12 +28,12 @@ namespace I18N\Messages\Extraction {
           continue;
         }
         yield new TranslationUnit(
-          $xpath->evaluate('string(xsl:with-param[@name="id"])', $call),
-          $xpath->evaluate('string(xsl:with-param[@name="message"])', $call),
-          $xpath->evaluate('string(xsl:with-param[@name="meaning"])', $call),
-          $xpath->evaluate('string(xsl:with-param[@name="description"])', $call),
-          (string)$target,
-          $call->getLineNo()
+          source: $xpath->evaluate('string(xsl:with-param[@name="message"])', $call),
+          id: $xpath->evaluate('string(xsl:with-param[@name="id"])', $call),
+          meaning: $xpath->evaluate('string(xsl:with-param[@name="meaning"])', $call),
+          description: $xpath->evaluate('string(xsl:with-param[@name="description"])', $call),
+          file: (string)$target,
+          line: $call->getLineNo()
         );
       }
     }

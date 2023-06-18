@@ -7,9 +7,9 @@ namespace I18N\Messages {
     public static function message(
       string $message,
       array $values = [],
-      ?string $id = null,
-      ?string $meaning = null,
-      ?string $description = null
+      ?string $id = '',
+      ?string $meaning = '',
+      ?string $description = ''
     ): string {
 
     }

@@ -26,7 +26,6 @@ namespace I18N\Messages {
     }
 
     public function getIterator(): \Iterator {
-      var_dump('extract', $this->_messages);
       if (!isset($this->_messages)) {
         $this->_messages = iterator_to_array(
           (
@@ -37,7 +36,6 @@ namespace I18N\Messages {
             )
           )->extract($this->directory)
         );
-        var_dump($this->_messages);
       }
       return new \ArrayIterator($this->_messages);
     }

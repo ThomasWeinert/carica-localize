@@ -21,7 +21,9 @@ namespace I18N\Messages\Extraction {
       $units = new \AppendIterator();
       foreach ($files as $file) {
         foreach ($this->_extractors as $extractor) {
-          $units->append($extractor->extract($file));
+          $units->append(
+            new \NoRewindIterator($extractor->extract($file))
+          );
         }
       }
       return $units;

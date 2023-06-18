@@ -36,8 +36,10 @@
 
   <xsl:template name="i18n:message">
     <xsl:param name="message"/>
-    <xsl:param name="id"/>
     <xsl:param name="meaning" select="''"/>
+    <xsl:param
+      name="id"
+      select="php:function($I18N_CALLBACK, $I18N_MODULE_MESSAGES, 'generateId', string($message), string($meaning))"/>
     <xsl:param name="description" select="''"/>
     <xsl:param name="locale" select="$I18N_LOCALE"/>
     <xsl:param name="values"/>

@@ -3,7 +3,13 @@ declare(strict_types=1);
 
 namespace I18N\Messages\XSL {
 
+  use I18N\Messages\TranslationUnit;
+
   abstract class Messages {
+
+    public static function generateId(string $source, string $meaning): string {
+      return TranslationUnit::generateId($source, $meaning);
+    }
 
     public static function formatMessage(
       string $locale, string $pattern, $values = null

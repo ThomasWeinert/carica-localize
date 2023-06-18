@@ -12,6 +12,11 @@
   <xsl:template match="/">
     <div>
       <xsl:call-template name="i18n:message">
+        <xsl:with-param name="message">Example</xsl:with-param>
+      </xsl:call-template>
+    </div>
+    <div>
+      <xsl:call-template name="i18n:message">
         <xsl:with-param name="id">example.one</xsl:with-param>
         <xsl:with-param name="message">Example</xsl:with-param>
       </xsl:call-template>

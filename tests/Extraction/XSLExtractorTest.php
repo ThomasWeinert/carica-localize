@@ -9,6 +9,43 @@ namespace I18N\Messages\Extraction {
 
   final class XSLExtractorTest extends TestCase {
 
+    public function testWithMessageAndAutoId(): void {
+      $xsl = new DataURL(
+        '<xsl:stylesheet
+            version="1.0"
+            xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+            xmlns:i18n="urn:i18n">
+
+            <xsl:template name="ExampleTemplate">
+              <span>
+                <xsl:call-template name="i18n:message">
+                  <xsl:with-param name="message">Example</xsl:with-param>
+                </xsl:call-template>
+              </span>
+            </xsl:template>
+
+          </xsl:stylesheet>',
+        'application/xml'
+      );
+      $extractor = new XSLExtractor();
+      $units = iterator_to_array(
+        $extractor->extract((string)$xsl)
+      );
+      $this->assertEquals(
+        [
+          new TranslationUnit(
+            'Example',
+            'fd50843194309267b53a13993393d2a2',
+            '',
+            '',
+            '',
+            8
+          )
+        ],
+        $units
+      );
+    }
+
     public function testWithIdAndMessage(): void {
       $xsl = new DataURL(
         '<xsl:stylesheet
@@ -35,8 +72,8 @@ namespace I18N\Messages\Extraction {
       $this->assertEquals(
         [
           new TranslationUnit(
-            'example.id',
             'Example',
+            'example.id',
             '',
             '',
             '',
@@ -74,8 +111,8 @@ namespace I18N\Messages\Extraction {
       $this->assertEquals(
         [
           new TranslationUnit(
-            'example.id',
             'Example',
+            'example.id',
             'Category',
             'Note for translator',
             '',
