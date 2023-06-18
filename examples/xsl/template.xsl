@@ -6,6 +6,9 @@
 
   <xsl:import href="i18n://Messages"/>
 
+  <xsl:param name="I18N_LOCALE">de</xsl:param>
+  <xsl:param name="I18N_MESSAGES" select="document(i18n:messages-file('de', './example'))"/>
+
   <xsl:template match="/">
     <div>
       <xsl:call-template name="i18n:message">

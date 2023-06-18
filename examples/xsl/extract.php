@@ -6,7 +6,7 @@ use I18N\Messages\Extraction;
 $sourceLanguage = 'en';
 $targetLanguages = ['de', 'fr'];
 
-$messages = new \I18N\Messages\Extraction(
+$messages = new Extraction(
   __DIR__,
   [
     '(\\.xsl$)i' => new Extraction\XSLExtractor()

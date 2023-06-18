@@ -9,9 +9,7 @@ $processor = new \XSLTProcessor();
 $processor->registerPHPFunctions([Callbacks::XSL_CALLBACK]);
 
 $template = new \DOMDocument();
-$template->loadXML(
-''
-);
+$template->load('template.xsl');
 
 $processor->importStylesheet($template);
 

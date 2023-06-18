@@ -6,14 +6,33 @@
   xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
   xmlns:exsl="http://exslt.org/common"
   xmlns:php="http://php.net/xsl"
+  xmlns:func="http://exslt.org/functions"
   exclude-result-prefixes="i18n"
-  extension-element-prefixes="exsl php">
+  extension-element-prefixes="exsl func php">
 
   <xsl:variable name="I18N_MESSAGES"/>
   <xsl:variable name="I18N_LOCALE">en</xsl:variable>
+  <xsl:variable name="I18N_SOURCE_LOCALE">en</xsl:variable>
 
   <xsl:variable name="I18N_CALLBACK" select="'I18N\Messages\XSL\Callbacks::handleFunctionCall'"/>
   <xsl:variable name="I18N_MODULE_MESSAGES" select="'Messages'"/>
+
+  <func:function name="i18n:messages-file">
+    <xsl:param name="language"/>
+    <xsl:param name="name">messages</xsl:param>
+    <xsl:param name="extension">xlf</xsl:param>
+    <xsl:param name="source-language" select="$I18N_SOURCE_LOCALE"/>
+    <xsl:variable name="file">
+      <xsl:value-of select="$name"/>
+      <xsl:if test="$language != $source-language">
+        <xsl:text>.</xsl:text>
+        <xsl:value-of select="$language"/>
+      </xsl:if>
+      <xsl:text>.</xsl:text>
+      <xsl:value-of select="$extension"/>
+    </xsl:variable>
+    <func:result select="$file"/>
+  </func:function>
 
   <xsl:template name="i18n:message">
     <xsl:param name="message"/>
