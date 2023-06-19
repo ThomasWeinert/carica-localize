@@ -8,7 +8,7 @@ namespace Carica\Localize\XSL {
   abstract  class Callbacks {
 
     private static array $_modules = [
-      'Messages' => Messages::class,
+      'Messages' => XSLLocalize::class,
     ];
 
     public const XSL_CALLBACK = self::class.'::handleFunctionCall';

@@ -10,18 +10,18 @@
   exclude-result-prefixes="i18n"
   extension-element-prefixes="exsl func php">
 
-  <xsl:variable name="I18N_MESSAGES"/>
-  <xsl:variable name="I18N_LOCALE">en</xsl:variable>
-  <xsl:variable name="I18N_SOURCE_LOCALE">en</xsl:variable>
+  <xsl:variable name="LOCALIZE_MESSAGES"/>
+  <xsl:variable name="LOCALIZE_LANGUAGE">en</xsl:variable>
+  <xsl:variable name="LOCALIZE_SOURCE_LANGUAGE">en</xsl:variable>
 
-  <xsl:variable name="I18N_CALLBACK" select="'Carica\Localize\XSL\Callbacks::handleFunctionCall'"/>
-  <xsl:variable name="I18N_MODULE_MESSAGES" select="'Messages'"/>
+  <xsl:variable name="CARICA_LOCALIZE_CALLBACK" select="'Carica\Localize\XSL\Callbacks::handleFunctionCall'"/>
+  <xsl:variable name="CARICA_LOCALIZE_MODULE_MESSAGES" select="'Messages'"/>
 
   <func:function name="i18n:messages-file">
     <xsl:param name="language"/>
     <xsl:param name="name">messages</xsl:param>
     <xsl:param name="extension">xlf</xsl:param>
-    <xsl:param name="source-language" select="$I18N_SOURCE_LOCALE"/>
+    <xsl:param name="source-language" select="$LOCALIZE_SOURCE_LANGUAGE"/>
     <xsl:variable name="file">
       <xsl:value-of select="$name"/>
       <xsl:if test="$language != $source-language">
@@ -39,17 +39,17 @@
     <xsl:param name="meaning" select="''"/>
     <xsl:param
       name="id"
-      select="php:function($I18N_CALLBACK, $I18N_MODULE_MESSAGES, 'generateId', string($message), string($meaning))"/>
+      select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'generateId', string($message), string($meaning))"/>
     <xsl:param name="description" select="''"/>
-    <xsl:param name="locale" select="$I18N_LOCALE"/>
+    <xsl:param name="locale" select="$LOCALIZE_LANGUAGE"/>
     <xsl:param name="values"/>
 
     <xsl:variable name="targetMessage">
       <xsl:choose>
-        <xsl:when test="$I18N_MESSAGES">
+        <xsl:when test="$LOCALIZE_MESSAGES">
           <xsl:variable
             name="translation"
-            select="$I18N_MESSAGES/xliff:xliff//xliff:trans-unit[@id = $id]">
+            select="$LOCALIZE_MESSAGES/xliff:xliff//xliff:trans-unit[@id = $id]">
           </xsl:variable>
           <xsl:choose>
             <xsl:when test="$translation and $translation/xliff:target">
@@ -71,7 +71,7 @@
 
     <xsl:variable
       name="formattedMessage"
-      select="php:function($I18N_CALLBACK, $I18N_MODULE_MESSAGES, 'formatMessage', string($locale), string($targetMessage), exsl:node-set($values))"/>
+      select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'formatMessage', string($locale), string($targetMessage), exsl:node-set($values))"/>
 
     <xsl:value-of select="$formattedMessage"/>
   </xsl:template>

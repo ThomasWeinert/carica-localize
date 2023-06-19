@@ -7,6 +7,7 @@ namespace Carica\Localize {
   use Carica\Localize\Extraction\ConflictValidator;
   use Carica\Localize\Extraction\ExtractorFilter;
   use Carica\Localize\Extraction\RecursiveDirectoryExtractor;
+  use Carica\Localize\Serializer\Report\Report;
   use Carica\Localize\Serializer\Serializer;
   use Carica\Localize\Serializer\XliffSerializer;
 
@@ -16,10 +17,22 @@ namespace Carica\Localize {
 
     private ?array $_messages = null;
 
+    /**
+     * @var string[]
+     */
+    private array $_directories;
+
     public function __construct(
-      private readonly string $directory,
-      array $fileExtractors
+      string|array $directories,
+      array $fileExtractors,
+      private ?\Closure $onConflict = null,
     ) {
+      $this->_directories = is_string($directories)
+        ? [$directories]
+        : array_map(
+          static fn($directory) => (string)$directory,
+          $directories
+        );
       foreach ($fileExtractors as $pattern => $extractor) {
         $this->_extractors[] = new ExtractorFilter($pattern, $extractor);
       }
@@ -27,14 +40,13 @@ namespace Carica\Localize {
 
     public function getIterator(): \Iterator {
       if (!isset($this->_messages)) {
+        $iterator = new \AppendIterator();
+        $messages = new RecursiveDirectoryExtractor(...$this->_extractors);
+        foreach ($this->_directories as $directory) {
+          $iterator->append($messages->extract($directory));
+        }
         $this->_messages = iterator_to_array(
-          (
-            new ConflictValidator(
-              new RecursiveDirectoryExtractor(
-                ...$this->_extractors
-              )
-            )
-          )->extract($this->directory)
+          new ConflictValidator($iterator, $this->onConflict)
         );
       }
       return new \ArrayIterator($this->_messages);
@@ -45,7 +57,8 @@ namespace Carica\Localize {
       string $sourceLanguage = 'en',
       array $targetLanguages = [],
       string $projectName = 'messages',
-      Serializer $serializer = new XliffSerializer()
+      Serializer $serializer = new XliffSerializer(),
+      ?Report $report = null,
     ): void {
       file_put_contents(
         $directory.'/'.$serializer->getFileName($projectName),
@@ -62,7 +75,7 @@ namespace Carica\Localize {
             $this,
             $sourceLanguage,
             $targetLanguage,
-            $fileName
+            $fileName,
           )
         );
       }

@@ -9,7 +9,7 @@ $targetLanguages = ['de', 'fr'];
 $messages = new Extraction(
   __DIR__,
   [
-    '(\\.php)i' => new Extraction\PHPExtractor()
+    '(\\.php)i' => new Extraction\PHPStaticFunctionExtractor()
   ]
 );
 $messages->output(

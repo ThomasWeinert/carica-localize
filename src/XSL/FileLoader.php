@@ -16,7 +16,7 @@ namespace Carica\Localize\XSL {
      * @param string $protocol
      * @param string|null $path
      */
-    public static function register(string $protocol = 'i18n', string $path = NULL): void {
+    public static function register(string $protocol = 'carica-localize', string $path = NULL): void {
       if (!in_array($protocol, stream_get_wrappers(), TRUE)) {
         self::$_paths[$protocol] = $path ?: __DIR__;
         stream_wrapper_register($protocol, __CLASS__);

@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Carica\Localize\Serializer {
 
+
+  use Carica\Localize\Serializer\Report\Report;
+
   interface Serializer {
 
 
@@ -13,6 +16,7 @@ namespace Carica\Localize\Serializer {
       string $sourceLanguage,
       string $targetLanguage = '',
       string $mergeFromFile = '',
+      ?Report $report = null,
     ): string;
   }
 }

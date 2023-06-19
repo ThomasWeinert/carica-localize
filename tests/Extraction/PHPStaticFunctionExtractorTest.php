@@ -7,7 +7,7 @@ namespace Carica\Localize\Extraction {
   use Carica\Localize\TranslationUnit;
   use PHPUnit\Framework\TestCase;
 
-  final class PHPExtractorTest extends TestCase {
+  final class PHPStaticFunctionExtractorTest extends TestCase {
 
     public function testWithMessageAndAutoId(): void {
       $xsl = new DataURL(
@@ -15,7 +15,7 @@ namespace Carica\Localize\Extraction {
           echo Localize::message('Example');",
         'application/xml'
       );
-      $extractor = new PHPExtractor();
+      $extractor = new PHPStaticFunctionExtractor();
       $units = iterator_to_array(
         $extractor->extract((string)$xsl)
       );
@@ -40,7 +40,7 @@ namespace Carica\Localize\Extraction {
           echo Localize::message('Example', id: 'example.id');",
         'application/xml'
       );
-      $extractor = new PHPExtractor();
+      $extractor = new PHPStaticFunctionExtractor();
       $units = iterator_to_array(
         $extractor->extract((string)$xsl)
       );

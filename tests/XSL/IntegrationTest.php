@@ -19,14 +19,14 @@ namespace Carica\Localize\XSL {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:carica:localize"
-            exclude-result-prefixes="i18n">
+            xmlns:localize="urn:carica:localize"
+            exclude-result-prefixes="localize">
 
-            <xsl:import href="i18n://Messages"/>
+            <xsl:import href="carica-localize://messages"/>
 
             <xsl:template match="/">
               <div>
-                <xsl:call-template name="i18n:message">
+                <xsl:call-template name="localize:message">
                   <xsl:with-param name="id">example.id</xsl:with-param>
                   <xsl:with-param name="message">Example</xsl:with-param>
                 </xsl:call-template>
@@ -60,14 +60,14 @@ namespace Carica\Localize\XSL {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:carica:localize"
-            exclude-result-prefixes="i18n">
+            xmlns:localize="urn:carica:localize"
+            exclude-result-prefixes="localize">
 
-            <xsl:import href="i18n://Messages"/>
+            <xsl:import href="carica-localize://messages"/>
 
             <xsl:template match="/">
               <div>
-                <xsl:call-template name="i18n:message">
+                <xsl:call-template name="localize:message">
                   <xsl:with-param name="id">example.id</xsl:with-param>
                   <xsl:with-param name="message">Example: {foo}</xsl:with-param>
                   <xsl:with-param name="values" select="/values/*"/>
@@ -102,14 +102,14 @@ namespace Carica\Localize\XSL {
         '<xsl:stylesheet
             version="1.0"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-            xmlns:i18n="urn:carica:localize"
-            exclude-result-prefixes="i18n">
+            xmlns:localize="urn:carica:localize"
+            exclude-result-prefixes="localize">
 
-            <xsl:import href="i18n://Messages"/>
+            <xsl:import href="carica-localize://messages"/>
 
             <xsl:template match="/">
               <div>
-                <xsl:call-template name="i18n:message">
+                <xsl:call-template name="localize:message">
                   <xsl:with-param name="id">example.id</xsl:with-param>
                   <xsl:with-param name="message">Example: {foo}</xsl:with-param>
                   <xsl:with-param name="values">

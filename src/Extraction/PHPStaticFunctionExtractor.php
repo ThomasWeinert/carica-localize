@@ -8,7 +8,7 @@ namespace Carica\Localize\Extraction {
   use Carica\Localize\TranslationUnit;
   use PhpParser;
 
-  readonly class PHPExtractor implements FileExtractor {
+  readonly class PHPStaticFunctionExtractor implements FileExtractor {
 
     private PhpParser\Parser $_parser;
     private string $_class;

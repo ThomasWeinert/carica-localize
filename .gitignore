@@ -1,7 +1,5 @@
 node_modules/
 build/
+vendor/
 
-src/**/*.css
-src/**/*.css.map
-
-zeplin-cli.bat
+/.phpunit.result.cache

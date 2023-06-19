@@ -3,7 +3,11 @@ declare(strict_types=1);
 
 namespace Carica\Localize\Serializer {
 
+  use Carica\Localize\Serializer\Report\CreateUnitMessage;
+  use Carica\Localize\Serializer\Report\ReportMessage;
+  use Carica\Localize\Serializer\Report\UpdateUnitMessage;
   use Carica\Localize\TranslationUnit;
+  use Carica\Localize\Serializer\Report\Report;
 
   class XliffSerializer implements Serializer {
 
@@ -18,7 +22,13 @@ namespace Carica\Localize\Serializer {
       string $sourceLanguage,
       string $targetLanguage = '',
       string $mergeFromFile = '',
+      ?Report $report = null,
     ): string {
+      $report = $report ?: (
+        new class implements Report {
+          public function push(ReportMessage $message): void {}
+        }
+      );
       $previousDocument = new \DOMDocument();
       if ($targetLanguage && $mergeFromFile) {
         try {
@@ -33,7 +43,7 @@ namespace Carica\Localize\Serializer {
         $previousUnit = $this->firstNodeOf(
           '(//xliff:trans-unit[@id="'.$unit->id.'"])[1]', $previousDocument, $xpath
         );
-        $this->writeUnit($unit, $body, (bool)$targetLanguage, $previousUnit);
+        $this->writeUnit($unit, $body, (bool)$targetLanguage, $report, $previousUnit);
       }
       return $body->ownerDocument->saveXML();
     }
@@ -76,7 +86,8 @@ namespace Carica\Localize\Serializer {
       TranslationUnit $unit,
       \DOMElement $body,
       bool $withTarget,
-      ?\DOMElement $current = null
+      Report $report,
+      ?\DOMElement $current = null,
     ) {
       $document = $body->ownerDocument;
       $body->append(
@@ -103,9 +114,14 @@ namespace Carica\Localize\Serializer {
           if ($currentSource === $unit->source && $currentMeaning === $unit->meaning) {
             $target->setAttribute('state', $currentState);
           } else {
+            $report->push(new UpdateUnitMessage($unit));
             $target->setAttribute('state', 'needs-l10n');
           }
+        } else {
+          $report->push(new CreateUnitMessage($unit));
         }
+      } else {
+        $report->push(new CreateUnitMessage($unit));
       }
       if ($unit->meaning) {
         $transUnit->append(

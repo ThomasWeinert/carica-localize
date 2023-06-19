@@ -5,10 +5,10 @@ namespace Carica\Localize\XSL {
 
   use PHPUnit\Framework\TestCase;
 
-  final class MessagesTest extends TestCase {
+  final class XSLLocalizeTest extends TestCase {
 
     public function testMessage(): void {
-      $formatted = Messages::formatMessage(
+      $formatted = XSLLocalize::formatMessage(
         'en',
         'Example'
       );
@@ -16,7 +16,7 @@ namespace Carica\Localize\XSL {
     }
 
     public function testMessageWithPlaceholder(): void {
-      $formatted = Messages::formatMessage(
+      $formatted = XSLLocalize::formatMessage(
         'en',
         'Example: {value}',
         [

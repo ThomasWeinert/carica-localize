@@ -5,7 +5,7 @@ namespace Carica\Localize\XSL {
 
   use Carica\Localize\TranslationUnit;
 
-  abstract class Messages {
+  abstract class XSLLocalize {
 
     public static function generateId(string $source, string $meaning): string {
       return TranslationUnit::generateId($source, $meaning);
@@ -14,9 +14,9 @@ namespace Carica\Localize\XSL {
     public static function formatMessage(
       string $locale, string $pattern, $values = null
     ): string {
-      $message = new \MessageFormatter($locale, $pattern);
+      $formatter = new \MessageFormatter($locale, $pattern);
       $values = self::getArrayFromArgument($values);
-      return $message->format($values) ?: 'default';
+      return $formatter->format($values) ?: 'default';
     }
 
     private static function getArrayFromArgument($argument): array {
