@@ -60,14 +60,20 @@ namespace Carica\Localize {
       Serializer $serializer = new XliffSerializer(),
       ?Report $report = null,
     ): void {
+      $fileName = $directory.'/'.$serializer->getFileName($projectName);
+      $report?->startFile($fileName);
       file_put_contents(
-        $directory.'/'.$serializer->getFileName($projectName),
+        $fileName,
         $serializer->serializeToString(
           $this,
-          $sourceLanguage
+          $sourceLanguage,
+          mergeFromFile: $fileName,
+          report: $report
         )
       );
+      $report?->endFile($fileName);
       foreach ($targetLanguages as $targetLanguage) {
+        $report?->startFile($fileName);
         $fileName = $directory.'/'.$serializer->getFileName($projectName, $targetLanguage);
         file_put_contents(
           $fileName,
@@ -75,9 +81,11 @@ namespace Carica\Localize {
             $this,
             $sourceLanguage,
             $targetLanguage,
-            $fileName,
+            mergeFromFile: $fileName,
+            report: $report
           )
         );
+        $report?->endFile($fileName);
       }
     }
   }

@@ -5,7 +5,7 @@ namespace Carica\Localize\Serializer\Report {
 
   use Carica\Localize\TranslationUnit;
 
-  readonly class CreateUnitMessage implements ReportMessage {
+  readonly class ChangeUnitMessage implements ReportMessage {
 
     private string $_message;
 
@@ -13,7 +13,7 @@ namespace Carica\Localize\Serializer\Report {
       public TranslationUnit $unit
     ) {
       $this->_message = sprintf(
-        '[+] %s', $unit->label
+        '[!]: %s', $unit->label
       );
     }
 
