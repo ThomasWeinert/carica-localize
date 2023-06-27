@@ -18,8 +18,8 @@ $messages = new Extraction(
 );
 $messages->output(
   __DIR__,
-  'en',
-  ['de', 'fr'],
+  $sourceLanguage,
+  $targetLanguages,
   'example',
   report: new ConsoleReport()
 );
