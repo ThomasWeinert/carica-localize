@@ -4,7 +4,7 @@
   xmlns:localize="urn:carica:localize"
   exclude-result-prefixes="localize">
 
-  <xsl:import href="carica-localize://messages"/>
+  <xsl:import href="../../src/localize.xsl"/>
 
   <xsl:param name="LOCALIZE_LANGUAGE">de</xsl:param>
   <xsl:param name="LOCALIZE_MESSAGES" select="document(localize:messages-file('de', './example'))"/>

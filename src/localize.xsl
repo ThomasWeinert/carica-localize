@@ -42,7 +42,7 @@
       select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'generateId', string($message), string($meaning))"/>
     <xsl:param name="description" select="''"/>
     <xsl:param name="locale" select="$LOCALIZE_LANGUAGE"/>
-    <xsl:param name="values"/>
+    <xsl:param name="values" select="false()"/>
 
     <xsl:variable name="targetMessage">
       <xsl:choose>
