@@ -10,6 +10,7 @@ The goal is to have a mostly automated way to maintain the localized texts conti
 * PHP >= 8.2
 * ext/intl
 * ext/dom
+* ext/xsl (when using XSL features)
 * nikic/php-parser
 
 ## Define
