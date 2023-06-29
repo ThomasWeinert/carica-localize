@@ -73,8 +73,8 @@ namespace Carica\Localize {
       );
       $report?->endFile($fileName);
       foreach ($targetLanguages as $targetLanguage) {
-        $report?->startFile($fileName);
         $fileName = $directory.'/'.$serializer->getFileName($projectName, $targetLanguage);
+        $report?->startFile($fileName);
         file_put_contents(
           $fileName,
           $serializer->serializeToString(
