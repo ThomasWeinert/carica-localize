@@ -2,9 +2,7 @@
 require __DIR__.'/../../vendor/autoload.php';
 
 use Carica\Localize\XSL\Callbacks;
-use Carica\Localize\XSL\FileLoader;
 
-FileLoader::register();
 $processor = new \XSLTProcessor();
 $processor->registerPHPFunctions([Callbacks::XSL_CALLBACK]);
 

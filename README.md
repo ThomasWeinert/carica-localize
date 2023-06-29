@@ -45,9 +45,7 @@ You need to register the stream wrapper and the callback function.
 
 ```php
 use Carica\Localize\XSL\Callbacks;
-use Carica\Localize\XSL\FileLoader;
 
-FileLoader::register();
 $processor = new \XSLTProcessor();
 $processor->registerPHPFunctions([Callbacks::XSL_CALLBACK]);
 ```
@@ -65,7 +63,7 @@ avoid conflicts.
   xmlns:localize="urn:carica:localize"
   exclude-result-prefixes="localize">
 
-  <xsl:import href="carica-localize://messages"/>
+  <xsl:import href="../vendor/carica/localize/src/localize.xsl"/>
 
   <xsl:template match="/">
     <div>
