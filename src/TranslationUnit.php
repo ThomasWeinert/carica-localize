@@ -19,12 +19,12 @@ namespace Carica\Localize {
     )
     {
       $this->id = $id ?: self::generateId($source, $meaning);
-      $this->label = $this->id.($meaning ? " \u{0001F5C0} ".$meaning : '');
+      $this->label = $this->id.($meaning ? " \u{0001F5C0} ".trim($meaning) : '');
       $this->file = (str_starts_with($file, 'data://')) ? '' : $file;
     }
 
     public static function generateId(string $source, string $meaning): string {
-      return md5($source."\u{0001F5C0}".$meaning);
+      return md5(trim($source)."\u{0001F5C0}".$meaning);
     }
   }
 }

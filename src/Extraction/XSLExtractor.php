@@ -27,10 +27,16 @@ namespace Carica\Localize\Extraction {
         if (!($localName === 'message' && $namespaceURI === $this->namespaceURI)) {
           continue;
         }
+        $sourceNode = $xpath->evaluate('(xsl:with-param[@name="message"])[1]', $call)[0] ?? null;
+        if (!$sourceNode) {
+          continue;
+        }
         yield new TranslationUnit(
-          source: $xpath->evaluate('string(xsl:with-param[@name="message"])', $call),
-          id: $xpath->evaluate('string(xsl:with-param[@name="id"])', $call),
-          meaning: $xpath->evaluate('string(xsl:with-param[@name="meaning"])', $call),
+          source: $sourceNode instanceof \DOMCdataSection
+            ? $sourceNode->textContent
+            : trim($sourceNode->textContent),
+          id: trim($xpath->evaluate('string(xsl:with-param[@name="id"])', $call)),
+          meaning: trim($xpath->evaluate('string(xsl:with-param[@name="meaning"])', $call)),
           description: $xpath->evaluate('string(xsl:with-param[@name="description"])', $call),
           file: (string)$target,
           line: $call->getLineNo()
