@@ -43,6 +43,7 @@
     <xsl:param name="description" select="''"/>
     <xsl:param name="locale" select="$LOCALIZE_LANGUAGE"/>
     <xsl:param name="values" select="false()"/>
+    <xsl:param name="type" select="'plaintext'"/>
 
     <xsl:variable name="targetMessage">
       <xsl:choose>
@@ -71,9 +72,9 @@
 
     <xsl:variable
       name="formattedMessage"
-      select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'formatMessage', string($locale), string($targetMessage), exsl:node-set($values))"/>
+      select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'formatMessage', string($locale), string($targetMessage), exsl:node-set($values), string($type))"/>
 
-    <xsl:value-of select="$formattedMessage"/>
+    <xsl:copy-of select="$formattedMessage"/>
   </xsl:template>
 
 </xsl:stylesheet>

@@ -6,6 +6,7 @@
     "php": "^8.2",
     "ext-dom": "*",
     "ext-intl": "*",
+    "ext-libxml": "*",
     "nikic/php-parser": "^4.15"
   },
   "autoload": {

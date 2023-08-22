@@ -14,6 +14,7 @@ namespace Carica\Localize {
       ?string $id = null,
       public string $meaning = '',
       public string $description = '',
+      public TranslationUnitDataType $dataType = TranslationUnitDataType::PlainText,
       string $file = '',
       public int $line = -1
     )

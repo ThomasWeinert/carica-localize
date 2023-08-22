@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Carica\Localize\Extraction {
 
   use Carica\Localize\TranslationUnit;
+  use Carica\Localize\TranslationUnitDataType;
 
   readonly class XSLExtractor implements FileExtractor {
 
@@ -27,17 +28,47 @@ namespace Carica\Localize\Extraction {
         if (!($localName === 'message' && $namespaceURI === $this->namespaceURI)) {
           continue;
         }
-        $sourceNode = $xpath->evaluate('(xsl:with-param[@name="message"])[1]', $call)[0] ?? null;
-        if (!$sourceNode) {
-          continue;
+        $dataType = TranslationUnitDataType::tryFrom(
+          trim(
+            $xpath->evaluate('string(xsl:with-param[@name="type"])', $call)
+          )
+        ) ?? TranslationUnitDataType::PlainText;
+        if (
+          $dataType === TranslationUnitDataType::Html ||
+          $dataType === TranslationUnitDataType::XHtml
+        ) {
+          $source = implode(
+            '',
+            array_map(
+              static function (\DOMNode $node) use ($document) {
+                return $document->saveXML($node);
+              },
+              iterator_to_array(
+                $xpath->evaluate('xsl:with-param[@name="message"]/node()', $call)
+              )
+            )
+          );
+        } else {
+          $sourceNode = $xpath->evaluate('(xsl:with-param[@name="message"])[1]', $call)[0] ?? null;
+          if (!$sourceNode) {
+            continue;
+          }
+          $source = $sourceNode instanceof \DOMCdataSection
+            ? $sourceNode->textContent
+            : trim($sourceNode->textContent);
         }
         yield new TranslationUnit(
-          source: $sourceNode instanceof \DOMCdataSection
-            ? $sourceNode->textContent
-            : trim($sourceNode->textContent),
-          id: trim($xpath->evaluate('string(xsl:with-param[@name="id"])', $call)),
-          meaning: trim($xpath->evaluate('string(xsl:with-param[@name="meaning"])', $call)),
-          description: $xpath->evaluate('string(xsl:with-param[@name="description"])', $call),
+          source: trim($source),
+          id: trim(
+            $xpath->evaluate('string(xsl:with-param[@name="id"])', $call)
+          ),
+          meaning: trim(
+            $xpath->evaluate('string(xsl:with-param[@name="meaning"])', $call)
+          ),
+          description: trim(
+            $xpath->evaluate('string(xsl:with-param[@name="description"])', $call)
+          ),
+          dataType: $dataType,
           file: (string)$target,
           line: $call->getLineNo()
         );

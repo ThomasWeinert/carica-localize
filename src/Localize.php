@@ -28,6 +28,7 @@ namespace Carica\Localize {
       string $id = '',
       string $meaning = '',
       string $description = '',
+      ?TranslationUnitDataType $dataType = TranslationUnitDataType::PlainText,
       ?string $locale = null,
     ): string {
       $locale = $locale ?: self::$locale;

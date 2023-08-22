@@ -22,7 +22,7 @@ namespace Carica\Localize\XSL {
             xmlns:localize="urn:carica:localize"
             exclude-result-prefixes="localize">
 
-            <xsl:import href="carica-localize://messages"/>
+            <xsl:import href="carica-localize://localize"/>
 
             <xsl:template match="/">
               <div>
@@ -63,7 +63,7 @@ namespace Carica\Localize\XSL {
             xmlns:localize="urn:carica:localize"
             exclude-result-prefixes="localize">
 
-            <xsl:import href="carica-localize://messages"/>
+            <xsl:import href="carica-localize://localize"/>
 
             <xsl:template match="/">
               <div>
@@ -105,7 +105,7 @@ namespace Carica\Localize\XSL {
             xmlns:localize="urn:carica:localize"
             exclude-result-prefixes="localize">
 
-            <xsl:import href="carica-localize://messages"/>
+            <xsl:import href="carica-localize://localize"/>
 
             <xsl:template match="/">
               <div>

@@ -9,6 +9,7 @@ namespace Carica\Localize\Serializer {
   use Carica\Localize\Serializer\Report\ChangeUnitMessage;
   use Carica\Localize\TranslationUnit;
   use Carica\Localize\Serializer\Report\Report;
+  use Carica\Localize\TranslationUnitDataType;
 
   class XliffSerializer implements Serializer {
 
@@ -90,6 +91,9 @@ namespace Carica\Localize\Serializer {
         $transUnit = $document->createElementNS(self::XMLNS_XLIFF, 'trans-unit')
       );
       $transUnit->setAttribute('id', $unit->id);
+      if ($unit->dataType !== TranslationUnitDataType::PlainText) {
+        $transUnit->setAttribute('datatype', $unit->dataType->value);
+      }
       $transUnit->append(
         $source = $document->createElementNS(self::XMLNS_XLIFF, 'source')
       );

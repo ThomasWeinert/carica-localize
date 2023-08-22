@@ -5,6 +5,7 @@ namespace Carica\Localize\Extraction {
 
   use Carica\Localize\DataURL;
   use Carica\Localize\TranslationUnit;
+  use Carica\Localize\TranslationUnitDataType;
   use PHPUnit\Framework\TestCase;
 
   final class XSLExtractorTest extends TestCase {
@@ -38,6 +39,7 @@ namespace Carica\Localize\Extraction {
             'fd50843194309267b53a13993393d2a2',
             '',
             '',
+            TranslationUnitDataType::PlainText,
             '',
             8
           )
@@ -76,6 +78,7 @@ namespace Carica\Localize\Extraction {
             'example.id',
             '',
             '',
+            TranslationUnitDataType::PlainText,
             '',
             8
           )
@@ -115,6 +118,8 @@ namespace Carica\Localize\Extraction {
             'example.id',
             'Category',
             'Note for translator',
+
+            TranslationUnitDataType::PlainText,
             '',
             8
           )

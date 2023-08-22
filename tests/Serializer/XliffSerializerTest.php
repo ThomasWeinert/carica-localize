@@ -5,6 +5,7 @@ namespace Carica\Localize\Serializer {
 
   use Carica\Localize\DataURL;
   use Carica\Localize\TranslationUnit;
+  use Carica\Localize\TranslationUnitDataType;
   use PHPUnit\Framework\TestCase;
 
   final class XliffSerializerTest extends TestCase
@@ -90,16 +91,40 @@ namespace Carica\Localize\Serializer {
         new \ArrayIterator(
           [
             new TranslationUnit(
-              'translated', 'test.id.translated', '', '', '', 0
+              'translated',
+              'test.id.translated',
+              '',
+              '',
+              TranslationUnitDataType::PlainText,
+              '',
+              0
             ),
             new TranslationUnit(
-              'change-meaning', 'test.id.change-meaning', 'category', '', '', 0
+              'change-meaning',
+              'test.id.change-meaning',
+              'category',
+              '',
+              TranslationUnitDataType::PlainText,
+              '',
+              0
             ),
             new TranslationUnit(
-              'changed', 'test.id.change-source', '', '', '', 0
+              'changed',
+              'test.id.change-source',
+              '',
+              '',
+              TranslationUnitDataType::PlainText,
+              '',
+              0
             ),
             new TranslationUnit(
-              'new', 'test.id.new', '', '', '', 0
+              'new',
+              'test.id.new',
+              '',
+              '',
+              TranslationUnitDataType::PlainText,
+              '',
+              0
             ),
           ]
         ),

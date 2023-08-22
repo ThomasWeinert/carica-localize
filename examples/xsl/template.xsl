@@ -41,7 +41,15 @@
       <xsl:call-template name="localize:message">
         <xsl:with-param name="id">example.four</xsl:with-param>
         <xsl:with-param name="meaning">Category</xsl:with-param>
-        <xsl:with-param name="message">Example 2</xsl:with-param>
+        <xsl:with-param name="message">Example 4</xsl:with-param>
+      </xsl:call-template>
+    </div>
+    <div>
+      <xsl:call-template name="localize:message">
+        <xsl:with-param name="id">example.five</xsl:with-param>
+        <xsl:with-param name="meaning">Category</xsl:with-param>
+        <xsl:with-param name="message">Example <b>Five</b></xsl:with-param>
+        <xsl:with-param name="type">html</xsl:with-param>
       </xsl:call-template>
     </div>
   </xsl:template>

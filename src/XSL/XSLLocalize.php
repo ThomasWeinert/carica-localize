@@ -4,19 +4,49 @@ declare(strict_types=1);
 namespace Carica\Localize\XSL {
 
   use Carica\Localize\TranslationUnit;
+  use Carica\Localize\TranslationUnitDataType;
 
   abstract class XSLLocalize {
 
     public static function generateId(string $source, string $meaning): string {
-      return TranslationUnit::generateId($source, $meaning);
+      return TranslationUnit::generateId(trim($source), trim($meaning));
     }
 
     public static function formatMessage(
-      string $locale, string $pattern, $values = null
-    ): string {
+      string $locale, string $pattern, $values = null, string $type = TranslationUnitDataType::PlainText->value
+    ): string | \DOMDocumentFragment | \DOMDocument {
       $formatter = new \MessageFormatter($locale, $pattern);
       $values = self::getArrayFromArgument($values);
-      return $formatter->format($values) ?: 'default';
+      $formatted = $formatter->format($values);
+      $dataType = TranslationUnitDataType::tryFrom($type) ?: TranslationUnitDataType::PlainText;
+      if ($dataType === TranslationUnitDataType::Html) {
+        $document = new \DOMDocument();
+        try {
+          $document->loadHTML(
+            '<?xml version="1.0" charset="utf-8" ?>'.$formatted,
+            LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED
+          );
+          foreach ($document->childNodes as $node) {
+            if ($node instanceof \DOMProcessingInstruction) {
+              $document->removeChild($node);
+              break;
+            }
+          }
+          return $document;
+        } catch (\Throwable $e) {
+          return '';
+        }
+      } else if ($dataType === TranslationUnitDataType::XHtml) {
+        $document = new \DOMDocument();
+        $fragment = $document->createDocumentFragment();
+        try {
+          $fragment->appendXML($formatted);
+          return $fragment;
+        } catch (\Throwable $e) {
+          return '';
+        }
+      }
+      return $formatted;
     }
 
     private static function getArrayFromArgument($argument): array {

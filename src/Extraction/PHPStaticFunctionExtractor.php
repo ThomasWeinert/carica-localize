@@ -6,6 +6,7 @@ namespace Carica\Localize\Extraction {
 
   use Carica\Localize\Localize;
   use Carica\Localize\TranslationUnit;
+  use Carica\Localize\TranslationUnitDataType;
   use PhpParser;
 
   readonly class PHPStaticFunctionExtractor implements FileExtractor {
@@ -61,6 +62,7 @@ namespace Carica\Localize\Extraction {
             id: $arguments['id'] ?? $arguments[2] ?? '',
             meaning: $arguments['meaning'] ?? $arguments[3] ?? '',
             description: $arguments['description'] ?? $arguments[4] ?? '',
+            dataType: $arguments['dataType'] ?? $arguments[5] ?? TranslationUnitDataType::PlainText,
             file: (string)$target,
             line: $call->getStartLine(),
           )
