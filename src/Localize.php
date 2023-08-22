@@ -4,11 +4,16 @@ namespace Carica\Localize {
 
   use Carica\Localize\Messages\Messages;
   use Carica\Localize\Messages\EmptyMessages;
+  use Carica\Localize\XSL\Callbacks;
 
   abstract class Localize {
 
     private static Messages $_messages;
     private static string $locale = 'en';
+
+    public const XSL_CALLBACKS = [
+      Callbacks::XSL_CALLBACK
+    ];
 
     public static function messages(Messages $messages = null): Messages {
       if (NULL !== $messages) {

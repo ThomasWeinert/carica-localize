@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace Carica\Localize\Serializer {
 
   use Carica\Localize\Serializer\Report\CreateUnitMessage;
+  use Carica\Localize\Serializer\Report\EqualUnitMessage;
   use Carica\Localize\Serializer\Report\ReportMessage;
-  use Carica\Localize\Serializer\Report\UpdateUnitMessage;
+  use Carica\Localize\Serializer\Report\ChangeUnitMessage;
   use Carica\Localize\TranslationUnit;
   use Carica\Localize\Serializer\Report\Report;
 
@@ -24,13 +25,8 @@ namespace Carica\Localize\Serializer {
       string $mergeFromFile = '',
       ?Report $report = null,
     ): string {
-      $report = $report ?: (
-        new class implements Report {
-          public function push(ReportMessage $message): void {}
-        }
-      );
       $previousDocument = new \DOMDocument();
-      if ($targetLanguage && $mergeFromFile) {
+      if ($mergeFromFile) {
         try {
           @$previousDocument->load($mergeFromFile);
         } catch (\Throwable $e) {
@@ -86,7 +82,7 @@ namespace Carica\Localize\Serializer {
       TranslationUnit $unit,
       \DOMElement $body,
       bool $withTarget,
-      Report $report,
+      ?Report $report = null,
       ?\DOMElement $current = null,
     ) {
       $document = $body->ownerDocument;
@@ -112,16 +108,29 @@ namespace Carica\Localize\Serializer {
           $currentMeaning = $xpath->evaluate('string(xliff:note[@from="meaning"])', $current);
           $target->textContent = $xpath->evaluate('string(xliff:target)', $current);
           if ($currentSource === $unit->source && $currentMeaning === $unit->meaning) {
+            $report?->message(new EqualUnitMessage($unit));
             $target->setAttribute('state', $currentState);
           } else {
-            $report->push(new UpdateUnitMessage($unit));
+            $report?->message(new ChangeUnitMessage($unit));
             $target->setAttribute('state', 'needs-l10n');
           }
         } else {
-          $report->push(new CreateUnitMessage($unit));
+          $report?->message(new CreateUnitMessage($unit));
         }
       } else {
-        $report->push(new CreateUnitMessage($unit));
+        if ($current) {
+          $xpath = new \DOMXPath($current->ownerDocument);
+          $xpath->registerNamespace('xliff', self::XMLNS_XLIFF);
+          $currentSource = $xpath->evaluate('string(xliff:source)', $current);
+          $currentMeaning = $xpath->evaluate('string(xliff:note[@from="meaning"])', $current);
+          if ($currentSource === $unit->source && $currentMeaning === $unit->meaning) {
+            $report?->message(new EqualUnitMessage($unit));
+          } else {
+            $report?->message(new ChangeUnitMessage($unit));
+          }
+        } else {
+          $report?->message(new CreateUnitMessage($unit));
+        }
       }
       if ($unit->meaning) {
         $transUnit->append(

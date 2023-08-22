@@ -2,12 +2,12 @@
 <xsl:stylesheet
   version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:i18n="urn:carica:localize"
+  xmlns:localize="urn:carica:localize"
   xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
   xmlns:exsl="http://exslt.org/common"
   xmlns:php="http://php.net/xsl"
   xmlns:func="http://exslt.org/functions"
-  exclude-result-prefixes="i18n"
+  exclude-result-prefixes="localize"
   extension-element-prefixes="exsl func php">
 
   <xsl:variable name="LOCALIZE_MESSAGES"/>
@@ -17,7 +17,7 @@
   <xsl:variable name="CARICA_LOCALIZE_CALLBACK" select="'Carica\Localize\XSL\Callbacks::handleFunctionCall'"/>
   <xsl:variable name="CARICA_LOCALIZE_MODULE_MESSAGES" select="'Messages'"/>
 
-  <func:function name="i18n:messages-file">
+  <func:function name="localize:messages-file">
     <xsl:param name="language"/>
     <xsl:param name="name">messages</xsl:param>
     <xsl:param name="extension">xlf</xsl:param>
@@ -34,7 +34,7 @@
     <func:result select="$file"/>
   </func:function>
 
-  <xsl:template name="i18n:message">
+  <xsl:template name="localize:message">
     <xsl:param name="message"/>
     <xsl:param name="meaning" select="''"/>
     <xsl:param
@@ -42,7 +42,7 @@
       select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'generateId', string($message), string($meaning))"/>
     <xsl:param name="description" select="''"/>
     <xsl:param name="locale" select="$LOCALIZE_LANGUAGE"/>
-    <xsl:param name="values"/>
+    <xsl:param name="values" select="false()"/>
 
     <xsl:variable name="targetMessage">
       <xsl:choose>

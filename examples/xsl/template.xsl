@@ -4,7 +4,7 @@
   xmlns:localize="urn:carica:localize"
   exclude-result-prefixes="localize">
 
-  <xsl:import href="carica-localize://messages"/>
+  <xsl:import href="../../src/localize.xsl"/>
 
   <xsl:param name="LOCALIZE_LANGUAGE">de</xsl:param>
   <xsl:param name="LOCALIZE_MESSAGES" select="document(localize:messages-file('de', './example'))"/>
@@ -40,6 +40,7 @@
     <div>
       <xsl:call-template name="localize:message">
         <xsl:with-param name="id">example.four</xsl:with-param>
+        <xsl:with-param name="meaning">Category</xsl:with-param>
         <xsl:with-param name="message">Example 2</xsl:with-param>
       </xsl:call-template>
     </div>
