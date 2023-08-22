@@ -48,7 +48,10 @@
       <xsl:call-template name="localize:message">
         <xsl:with-param name="id">example.five</xsl:with-param>
         <xsl:with-param name="meaning">Category</xsl:with-param>
-        <xsl:with-param name="message">Example <b>Five</b></xsl:with-param>
+        <xsl:with-param name="message">
+          Example
+          <b>Five</b>
+        </xsl:with-param>
         <xsl:with-param name="type">html</xsl:with-param>
       </xsl:call-template>
     </div>

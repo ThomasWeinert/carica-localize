@@ -37,35 +37,37 @@ namespace Carica\Localize\Extraction {
           $dataType === TranslationUnitDataType::Html ||
           $dataType === TranslationUnitDataType::XHtml
         ) {
-          $source = implode(
-            '',
-            array_map(
-              static function (\DOMNode $node) use ($document) {
-                return $document->saveXML($node);
-              },
-              iterator_to_array(
-                $xpath->evaluate('xsl:with-param[@name="message"]/node()', $call)
+          $source = $this->normalizeSpace(
+            implode(
+              '',
+              array_map(
+                static function (\DOMNode $node) use ($document) {
+                  return $document->saveXML($node);
+                },
+                iterator_to_array(
+                  $xpath->evaluate('xsl:with-param[@name="message"]/node()', $call)
+                )
               )
             )
           );
         } else {
-          $sourceNode = $xpath->evaluate('(xsl:with-param[@name="message"])[1]', $call)[0] ?? null;
+          $sourceNode = $xpath->evaluate('(xsl:with-param[@name="message"])[1]', $call)[0] ?? NULL;
           if (!$sourceNode) {
             continue;
           }
           $source = $sourceNode instanceof \DOMCdataSection
             ? $sourceNode->textContent
-            : trim($sourceNode->textContent);
+            : $this->normalizeSpace($sourceNode->textContent);
         }
         yield new TranslationUnit(
-          source: trim($source),
-          id: trim(
+          source: $source,
+          id: $this->normalizeSpace(
             $xpath->evaluate('string(xsl:with-param[@name="id"])', $call)
           ),
-          meaning: trim(
+          meaning: $this->normalizeSpace(
             $xpath->evaluate('string(xsl:with-param[@name="meaning"])', $call)
           ),
-          description: trim(
+          description: $this->normalizeSpace(
             $xpath->evaluate('string(xsl:with-param[@name="description"])', $call)
           ),
           dataType: $dataType,
@@ -73,6 +75,10 @@ namespace Carica\Localize\Extraction {
           line: $call->getLineNo()
         );
       }
+    }
+
+    private function normalizeSpace($value) {
+      return trim(preg_replace('(\s+)', ' ', $value));
     }
   }
 
