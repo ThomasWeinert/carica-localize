@@ -34,6 +34,23 @@
     <func:result select="$file"/>
   </func:function>
 
+  <func:function
+    name="localize:serializeNodes">
+    <xsl:param name="nodes"/>
+    <xsl:param name="type">plaintext</xsl:param>
+    <xsl:variable name="result">
+      <xsl:choose>
+        <xsl:when test="$type = 'html' or $type = 'xhtml'">
+          <xsl:value-of select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'serializeNodes', exsl:node-set($nodes), string($type))"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'serializeNodes', exsl:node-set($nodes), string($type))"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <func:result select="$result"/>
+  </func:function>
+
   <xsl:template name="localize:message">
     <xsl:param name="message"/>
     <xsl:param name="meaning" select="''"/>
@@ -57,15 +74,15 @@
               <xsl:value-of select="$translation/xliff:target"/>
             </xsl:when>
             <xsl:when test="$translation and $translation/xliff:source">
-              <xsl:value-of select="$translation/xliff:source"/>
+              <xsl:copy-of select="$translation/xliff:source"/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="$message"/>
+              <xsl:value-of select="localize:serializeNodes($message)"/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="$message"/>
+          <xsl:value-of select="localize:serializeNodes($message)"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>

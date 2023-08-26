@@ -55,6 +55,17 @@
         <xsl:with-param name="type">html</xsl:with-param>
       </xsl:call-template>
     </div>
+    <div>
+      <xsl:call-template name="localize:message">
+        <xsl:with-param name="id">example.six</xsl:with-param>
+        <xsl:with-param name="meaning">Category</xsl:with-param>
+        <xsl:with-param name="message">
+          Example
+          <b>Six</b>
+        </xsl:with-param>
+        <xsl:with-param name="type">html</xsl:with-param>
+      </xsl:call-template>
+    </div>
   </xsl:template>
 
 </xsl:stylesheet>

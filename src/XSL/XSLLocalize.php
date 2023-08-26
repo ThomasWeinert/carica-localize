@@ -85,5 +85,27 @@ namespace Carica\Localize\XSL {
       }
       return [];
     }
+
+    public static function serializeNodes($data, string $type): string {
+      if ($data instanceof \DOMDocument) {
+        return $type === 'xhtml' ? $data->saveXML():  $data->saveHTML();
+      }
+      if ($data instanceof \DOMNode) {
+        return $type === 'xhtml'
+          ? $data->ownerDocument->saveXML($data)
+          : $data->ownerDocument->saveHTML($data);
+      }
+      if (is_array($data) || $data instanceof \DOMNodeList) {
+        $array = is_array($data) ? $data : iterator_to_array($data);
+        return implode(
+          '',
+          array_map(
+            static fn($item) => self::serializeNodes($item, $type),
+            $data,
+          )
+        );
+      }
+      return '';
+    }
   }
 }
