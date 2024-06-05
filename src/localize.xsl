@@ -91,7 +91,14 @@
       name="formattedMessage"
       select="php:function($CARICA_LOCALIZE_CALLBACK, $CARICA_LOCALIZE_MODULE_MESSAGES, 'formatMessage', string($locale), string($targetMessage), exsl:node-set($values), string($type))"/>
 
-    <xsl:copy-of select="$formattedMessage"/>
+    <xsl:choose>
+      <xsl:when test="$type = 'html' or $type = 'xhtml'">
+        <xsl:copy-of select="$formattedMessage"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$formattedMessage"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>

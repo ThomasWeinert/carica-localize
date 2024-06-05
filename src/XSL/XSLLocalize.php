@@ -46,7 +46,7 @@ namespace Carica\Localize\XSL {
           return '';
         }
       }
-      return $formatted;
+      return html_entity_decode($formatted, ENT_QUOTES, 'UTF-8');
     }
 
     private static function getArrayFromArgument($argument): array {
