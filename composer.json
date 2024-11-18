@@ -1,5 +1,6 @@
 {
   "name": "carica/localize",
+  "license": "MIT",
   "description": "Extract and localize messages in PHP applications",
   "type": "library",
   "require": {
